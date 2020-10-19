@@ -1,1 +1,1 @@
-# Repositório de Códigos e Comandos para recriação dos estudos feitos na minha dissertação de mestrado
+# Repositório de Códigos e Comandos para replicação dos estudos feitos na minha dissertação de mestrado
