@@ -1,0 +1,13 @@
+{
+  "SchemaVersion": 1,
+  "Name": "MestradoJM",
+  "ComponentId": "AQWSDASDASCXXXXXX",
+  "EntryPoint": "/bin/app",
+  "CmdArgs": [ "--ConnectionType", "DPS", "--ScopeID", "XXXXXXXXXXXXXX" ],
+  "Capabilities": {
+    "AllowedConnections": [ "global.azure-devices-provisioning.net", "XXXXXXXXX.azure-devices.net" ],
+    "Gpio": [ "$SAMPLE_BUTTON_1", "$SAMPLE_LED" ],
+    "DeviceAuthentication": "XXXXXXXXXXXXXXXX"
+  },
+    "ApplicationType": "Default"
+  }

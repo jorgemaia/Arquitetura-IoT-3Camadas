@@ -5,7 +5,10 @@
 
 #mac 
 .DS_Store
-
+*[Bb]uild
+*out
+*sdkconfig*
+*certs
 # User-specific files
 *.rsuser
 *.suo

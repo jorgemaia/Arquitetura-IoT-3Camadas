@@ -1,0 +1,58 @@
+{
+    "type": "uplink",
+    "meta": {
+        "network": "XXXXXXX",
+        "packet_hash": "XXXXXXX",
+        "application": "XXXXXXX",
+        "device_addr": "XXXXXXX",
+        "time": 1602597880.487109,
+        "device": "XXXXXXX",
+        "packet_id": "XXXXXXX",
+        "gateway": "XXXXXXX"
+    },
+    "params": {
+        "rx_time": 1602597880.4229057,
+        "port": 4,
+        "duplicate": false,
+        "radio": {
+            "delay": 0.046138286590576005,
+            "datarate": 3,
+            "modulation": {
+                "bandwidth": 125000,
+                "type": "LORA",
+                "spreading": 9,
+                "coderate": "4/5"
+            },
+            "hardware": {
+                "status": 1,
+                "chain": 1,
+                "tmst": 170361972,
+                "snr": -9.5,
+                "rssi": -113.0,
+                "channel": 6,
+                "gps": {
+                    "lat": -15.805330276489258,
+                    "lng": -47.89466857910156,
+                    "alt": 1140.0
+                }
+            },
+            "time": 1602597880.4229057,
+            "freq": 916.4,
+            "size": 73
+        },
+        "counter_up": 7,
+        "lora": {
+            "header": {
+                "confirmed": false,
+                "adr": false,
+                "ack": false,
+                "adr_ack_req": false,
+                "version": 0,
+                "type": 2
+            },
+            "mac_commands": []
+        },
+        "payload": "eyJMb2NhbCI6IlByaW1laXJvIEFuZGFyIiwiVCI6MTgsIlUiOjcxLCJMIjo4OTh9AAAAAAAAAAAAAAAA",
+        "encrypted_payload": "2JSQtvSRm/O4XNKS8e7TAY94j6rO4/f5OMvMrJbfjExouUCNxcstUyd+3PU/zWsWcZT2/Jx+QZt84Uf4"
+    }
+}

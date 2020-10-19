@@ -1,0 +1,142 @@
+{
+  "$schema-template": "2.0.0",
+  "modulesContent": {
+    "$edgeAgent": {
+      "properties.desired": {
+        "schemaVersion": "1.0",
+        "runtime": {
+          "type": "docker",
+          "settings": {
+            "minDockerVersion": "v1.25",
+            "loggingOptions": "",
+            "registryCredentials": {
+              "edgedevicesjm": {
+                "username": "$CONTAINER_REGISTRY_USERNAME_edgedevicesjm",
+                "password": "$CONTAINER_REGISTRY_PASSWORD_edgedevicesjm",
+                "address": "edgedevicesjm.azurecr.io"
+              }
+            }
+          }
+        },
+        "systemModules": {
+          "edgeAgent": {
+            "type": "docker",
+            "settings": {
+              "image": "mcr.microsoft.com/azureiotedge-agent:1.0",
+              "createOptions": {}
+            }
+          },
+          "edgeHub": {
+            "type": "docker",
+            "status": "running",
+            "restartPolicy": "always",
+            "settings": {
+              "image": "mcr.microsoft.com/azureiotedge-hub:1.0",
+              "createOptions": {
+                "HostConfig": {
+                  "PortBindings": {
+                    "5671/tcp": [
+                      {
+                        "HostPort": "5671"
+                      }
+                    ],
+                    "8883/tcp": [
+                      {
+                        "HostPort": "8883"
+                      }
+                    ],
+                    "443/tcp": [
+                      {
+                        "HostPort": "443"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "modules": {
+          "Modbus": {
+            "version": "1.0",
+            "type": "docker",
+            "status": "running",
+            "restartPolicy": "always",
+            "settings": {
+              "image": "mcr.microsoft.com/azureiotedge/modbus:latest",
+              "createOptions": {
+                "HostConfig": {
+                   "Devices": [
+                    {
+                      "PathOnHost": "/dev/ttyUSB0",
+                      "PathInContainer": "/dev/ttyUSB0",
+                      "CgroupPermissions": "rwm"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "ProcessamentoLocal": {
+            "version": "1.0",
+            "type": "docker",
+            "status": "running",
+            "restartPolicy": "always",
+            "settings": {
+              "image": "${MODULES.ProcessamentoLocal}",
+              "createOptions": {}
+            }
+          }
+        }
+      }
+    },
+    "$edgeHub": {
+      "properties.desired": {
+        "schemaVersion": "1.0",
+        "routes": {
+          "modbusToIoTHub": "FROM /messages/modules/Modbus/outputs/modbusOutput INTO BrokeredEndpoint(\"/modules/ProcessamentoLocal/inputs/input1\")",
+          "ProcessamentoLocalToIoTHub": "FROM /messages/modules/ProcessamentoLocal/outputs/* INTO $upstream"
+        },
+        "storeAndForwardConfiguration": {
+          "timeToLiveSecs": 7200
+        }
+      }
+    },
+    "Modbus": {
+      "properties.desired": {
+        "Version": "1",
+        "PublishInterval": "5000",
+        "SlaveConfigs": {
+          "Slave01": {
+            "SlaveConnection": "/dev/ttyUSB0",
+            "BaudRate": "9600",
+            "DataBits": "8",
+            "StopBits": "1",
+            "Parity": "NONE",
+            "FlowControl": "NONE",
+            "HwId": "Medidor-Quadro-Principal",
+            "Operations": {
+              "Op01": {
+                "PollingInterval": "3000",
+                "UnitId": "45",
+                "StartAddress": "300001",
+                "Count": "2",
+                "DisplayName": "Voltagem Fase 1"
+              },
+              "Op03": {
+                "PollingInterval": "3000",
+                "UnitId": "45",
+                "StartAddress": "300013",
+                "Count": "2",
+                "DisplayName": "Amperagem Fase 1 - (Atual)"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
